@@ -25,6 +25,10 @@ import java.util.List;
  */
 public class ActionSheetDialog {
 
+    public static final int TYPE_MIDDLE = 0x1001;   // 中部
+    public static final int TYPE_BOTTOM = 0x1002;   // 底部
+    private int typePosition = TYPE_BOTTOM;    // 当前的位置值
+
     private Context context;
     private Dialog dialog;
     private TextView txt_title;
@@ -42,32 +46,62 @@ public class ActionSheetDialog {
         display = windowManager.getDefaultDisplay();
     }
 
+    public ActionSheetDialog setShowPostion(int type) {
+        if(type == TYPE_MIDDLE || type == TYPE_BOTTOM) {   // 中部
+            typePosition = type;
+        }
+        return this;
+    }
+
     public ActionSheetDialog builder() {
         // 获取Dialog布局
         View view = LayoutInflater.from(context).inflate(
                 R.layout.toast_view_actionsheet, null);
 
-        // 设置Dialog最小宽度为屏幕宽度
-        view.setMinimumWidth(display.getWidth());
+        // 设置屏幕高度
+        if(typePosition == TYPE_MIDDLE) {
+            view.setMinimumWidth((int) ((float)display.getWidth() / 3 * 2));
+        } else {
+            // 设置Dialog最小宽度为屏幕宽度
+            view.setMinimumWidth(display.getWidth());
+        }
 
         // 获取自定义Dialog布局中的控件
         sLayout_content = (ScrollView) view.findViewById(R.id.sLayout_content);
         lLayout_content = (LinearLayout) view
                 .findViewById(R.id.lLayout_content);
         txt_title = (TextView) view.findViewById(R.id.txt_title);
+
+        // 中部不显示按钮，底部显示按钮
         txt_cancel = (TextView) view.findViewById(R.id.txt_cancel);
-        txt_cancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dialog.dismiss();
-            }
-        });
+        if(typePosition == TYPE_MIDDLE) {
+            txt_cancel.setVisibility(View.GONE);
+        } else {
+            txt_cancel.setVisibility(View.VISIBLE);
+            txt_cancel.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    dialog.dismiss();
+                }
+            });
+        }
 
         // 定义Dialog布局和参数
-        dialog = new Dialog(context, R.style.ActionSheetDialogStyle);
+        if(typePosition == TYPE_MIDDLE) {
+            dialog = new Dialog(context, R.style.ActionSheetDialogStyle_M);
+        } else {
+            dialog = new Dialog(context, R.style.ActionSheetDialogStyle);
+        }
         dialog.setContentView(view);
         Window dialogWindow = dialog.getWindow();
-        dialogWindow.setGravity(Gravity.LEFT | Gravity.BOTTOM);
+
+        // 设置对话框显示位置
+        if(typePosition == TYPE_MIDDLE) {
+            dialogWindow.setGravity(Gravity.CENTER);
+        } else {
+            dialogWindow.setGravity(Gravity.LEFT | Gravity.BOTTOM);
+        }
+
         WindowManager.LayoutParams lp = dialogWindow.getAttributes();
         lp.x = 0;
         lp.y = 0;
@@ -119,10 +153,18 @@ public class ActionSheetDialog {
         int size = sheetItemList.size();
         // TODO 高度控制，非最佳解决办法
         // 添加条目过多的时候控制高度
-        if (size >= 7) {
+        int MAX_SIZE = 7;
+        if(typePosition == TYPE_MIDDLE) {
+            MAX_SIZE = 4;
+        }
+        if (size >= MAX_SIZE) {
             LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) sLayout_content
                     .getLayoutParams();
-            params.height = display.getHeight() / 2;
+            if(typePosition == TYPE_MIDDLE) {
+                params.height = display.getHeight() / 4;
+            } else {
+                params.height = display.getHeight() / 2;
+            }
             sLayout_content.setLayoutParams(params);
         }
 
