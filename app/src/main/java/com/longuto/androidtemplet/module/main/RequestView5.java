@@ -1,6 +1,6 @@
 package com.longuto.androidtemplet.module.main;
 
-import com.longuto.androidtemplet.base.mvp.view.BaseMvpView;
+import com.longuto.androidtemplet.base.mvp.abs.view.BaseMvpView;
 
 /**
  * @author 刘镓旗

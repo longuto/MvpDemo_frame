@@ -1,7 +1,7 @@
-package com.longuto.androidtemplet.base.mvp.factory;
+package com.longuto.androidtemplet.base.mvp.abs.factory;
 
-import com.longuto.androidtemplet.base.mvp.presenter.BaseMvpPresenter;
-import com.longuto.androidtemplet.base.mvp.view.BaseMvpView;
+import com.longuto.androidtemplet.base.mvp.abs.presenter.BaseMvpPresenter;
+import com.longuto.androidtemplet.base.mvp.abs.view.BaseMvpView;
 
 /**
  * @author 刘镓旗

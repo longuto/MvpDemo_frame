@@ -1,22 +1,24 @@
-package com.longuto.androidtemplet.base.mvp.view;
+package com.longuto.androidtemplet.base.mvp.abs.view;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
-import com.longuto.androidtemplet.base.mvp.factory.PresenterMvpFactory;
-import com.longuto.androidtemplet.base.mvp.factory.PresenterMvpFactoryImpl;
-import com.longuto.androidtemplet.base.mvp.presenter.BaseMvpPresenter;
-import com.longuto.androidtemplet.base.mvp.proxy.BaseMvpProxy;
-import com.longuto.androidtemplet.base.mvp.proxy.PresenterProxyInterface;
+import com.longuto.androidtemplet.base.mvp.abs.factory.PresenterMvpFactory;
+import com.longuto.androidtemplet.base.mvp.abs.factory.PresenterMvpFactoryImpl;
+import com.longuto.androidtemplet.base.mvp.abs.presenter.BaseMvpPresenter;
+import com.longuto.androidtemplet.base.mvp.abs.proxy.BaseMvpProxy;
+import com.longuto.androidtemplet.base.mvp.abs.proxy.PresenterProxyInterface;
 
 /**
  * @author 刘镓旗
- * @date 2017/11/20
- * @description
+ * @date 2017/11/17
+ * @description 继承自Activity的基类MvpActivity
+ * 使用代理模式来代理Presenter的创建、销毁、绑定、解绑以及Presenter的状态保存,其实就是管理Presenter的生命周期
  */
-public class AbstractMvpAppCompatActivity<V extends BaseMvpView, P extends BaseMvpPresenter<V>> extends AppCompatActivity implements PresenterProxyInterface<V,P> {
+public abstract class AbstractMvpActivitiy<V extends BaseMvpView, P extends BaseMvpPresenter<V>> extends Activity implements PresenterProxyInterface<V,P> {
+
     private static final String PRESENTER_SAVE_KEY = "presenter_save_key";
     /**
      * 创建被代理对象,传入默认Presenter的工厂
@@ -29,6 +31,7 @@ public class AbstractMvpAppCompatActivity<V extends BaseMvpView, P extends BaseM
         Log.e("perfect-mvp","V onCreate");
         Log.e("perfect-mvp","V onCreate mProxy = " + mProxy);
         Log.e("perfect-mvp","V onCreate this = " + this.hashCode());
+
         if(savedInstanceState != null){
             mProxy.onRestoreInstanceState(savedInstanceState.getBundle(PRESENTER_SAVE_KEY));
         }
@@ -44,7 +47,7 @@ public class AbstractMvpAppCompatActivity<V extends BaseMvpView, P extends BaseM
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        Log.e("perfect-mvp","V onDestroy = " + isChangingConfigurations());
+        Log.e("perfect-mvp","V onDestroy = " );
         mProxy.onDestroy();
     }
 

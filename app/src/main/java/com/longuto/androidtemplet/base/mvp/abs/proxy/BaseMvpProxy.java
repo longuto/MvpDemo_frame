@@ -1,11 +1,11 @@
-package com.longuto.androidtemplet.base.mvp.proxy;
+package com.longuto.androidtemplet.base.mvp.abs.proxy;
 
 import android.os.Bundle;
 import android.util.Log;
 
-import com.longuto.androidtemplet.base.mvp.factory.PresenterMvpFactory;
-import com.longuto.androidtemplet.base.mvp.presenter.BaseMvpPresenter;
-import com.longuto.androidtemplet.base.mvp.view.BaseMvpView;
+import com.longuto.androidtemplet.base.mvp.abs.factory.PresenterMvpFactory;
+import com.longuto.androidtemplet.base.mvp.abs.presenter.BaseMvpPresenter;
+import com.longuto.androidtemplet.base.mvp.abs.view.BaseMvpView;
 
 /**
  * @author 刘镓旗

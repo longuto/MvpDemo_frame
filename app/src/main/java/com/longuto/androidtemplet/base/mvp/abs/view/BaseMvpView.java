@@ -1,4 +1,4 @@
-package com.longuto.androidtemplet.base.mvp.view;
+package com.longuto.androidtemplet.base.mvp.abs.view;
 
 /**
  * @author 刘镓旗

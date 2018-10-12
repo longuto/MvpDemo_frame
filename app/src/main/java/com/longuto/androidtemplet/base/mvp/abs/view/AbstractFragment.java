@@ -1,14 +1,14 @@
-package com.longuto.androidtemplet.base.mvp.view;
+package com.longuto.androidtemplet.base.mvp.abs.view;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 
-import com.longuto.androidtemplet.base.mvp.factory.PresenterMvpFactory;
-import com.longuto.androidtemplet.base.mvp.factory.PresenterMvpFactoryImpl;
-import com.longuto.androidtemplet.base.mvp.presenter.BaseMvpPresenter;
-import com.longuto.androidtemplet.base.mvp.proxy.BaseMvpProxy;
-import com.longuto.androidtemplet.base.mvp.proxy.PresenterProxyInterface;
+import com.longuto.androidtemplet.base.mvp.abs.factory.PresenterMvpFactory;
+import com.longuto.androidtemplet.base.mvp.abs.factory.PresenterMvpFactoryImpl;
+import com.longuto.androidtemplet.base.mvp.abs.presenter.BaseMvpPresenter;
+import com.longuto.androidtemplet.base.mvp.abs.proxy.BaseMvpProxy;
+import com.longuto.androidtemplet.base.mvp.abs.proxy.PresenterProxyInterface;
 
 /**
  * @author 刘镓旗

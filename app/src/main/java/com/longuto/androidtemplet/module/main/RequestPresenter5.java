@@ -4,7 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.util.Log;
 
-import com.longuto.androidtemplet.base.mvp.presenter.BaseMvpPresenter;
+import com.longuto.androidtemplet.base.mvp.abs.presenter.BaseMvpPresenter;
 
 /**
  * @author 刘镓旗

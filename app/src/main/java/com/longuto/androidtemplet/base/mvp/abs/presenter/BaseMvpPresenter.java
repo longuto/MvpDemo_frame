@@ -1,10 +1,10 @@
-package com.longuto.androidtemplet.base.mvp.presenter;
+package com.longuto.androidtemplet.base.mvp.abs.presenter;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.util.Log;
 
-import com.longuto.androidtemplet.base.mvp.view.BaseMvpView;
+import com.longuto.androidtemplet.base.mvp.abs.view.BaseMvpView;
 
 /**
  * @author 刘镓旗
