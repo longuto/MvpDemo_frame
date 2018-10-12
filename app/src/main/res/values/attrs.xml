@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="ProgressBarText">
+        <!--进度文本的颜色-->
+        <attr name="textColor" format="reference"/>
+        <!--进度文本的大小-->
+        <attr name="textSize" format="dimension"/>
+        <!--porgessbar进度背景-->
+        <attr name="progressDrawable" format="reference"/>
+    </declare-styleable>
+</resources>
