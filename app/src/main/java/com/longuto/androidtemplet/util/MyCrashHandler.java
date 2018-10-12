@@ -27,6 +27,9 @@ import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 
 import com.longuto.androidtemplet.BuildConfig;
+import com.longuto.androidtemplet.database.LogcollectionDaoUtil;
+import com.longuto.androidtemplet.greendao.db.LogcollectionInfoDao;
+import com.longuto.androidtemplet.model.greendao.LogcollectionInfo;
 
 import java.io.File;
 import java.io.PrintWriter;
@@ -174,6 +177,11 @@ public class MyCrashHandler implements UncaughtExceptionHandler {
 
     // 插入崩溃日志
     private void insertDb(String content) {
-
+        LogcollectionInfo temp = new LogcollectionInfo();
+        temp.setType(LogcollectionInfo.TYPE_CRASH);
+        temp.setContent(content);
+        temp.setTime(TimestampUtils.getCurrentTimestamp());
+        temp.setDeviceinfo(AppManager.getDeviceInfo());
+        new LogcollectionDaoUtil(UiUtils.getContext()).insertCategory(temp);
     }
 }

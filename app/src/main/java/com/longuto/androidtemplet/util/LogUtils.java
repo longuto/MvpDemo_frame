@@ -43,4 +43,8 @@ public class LogUtils {
 	}
 
 	private LogUtils(){}	//私有构造方法
+
+    public static void db(String s) {
+
+	}
 }

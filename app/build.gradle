@@ -1,4 +1,5 @@
 apply plugin: 'com.android.application'
+apply plugin: 'org.greenrobot.greendao'
 
 android {
     compileSdkVersion 28
@@ -15,6 +16,18 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
+    }
+    greendao {
+        //数据库schema版本，也可以理解为数据库版本号
+        schemaVersion 1
+        //设置DaoMaster 、DaoSession、Dao包名
+        daoPackage 'com.longuto.androidtemplet.greendao.db'
+        //设置DaoMaster 、DaoSession、Dao目录
+        targetGenDir 'src/main/java'
+        //设置生成单元测试目录
+        //targetGenDirTest
+        //设置自动生成单元测试用例
+        //generateTests
     }
 }
 
@@ -37,4 +50,6 @@ dependencies {
     implementation 'com.android.support:multidex:1.0.1'
     // 状态布局依赖
     implementation 'com.github.medyo:state-views:0.2'
+    // GreenDao依赖
+    implementation 'org.greenrobot:greendao:3.2.2'
 }
