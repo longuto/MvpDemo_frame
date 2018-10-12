@@ -5,6 +5,7 @@ import android.app.Application;
 import android.content.Context;
 import android.os.Bundle;
 import android.os.Process;
+import android.support.multidex.MultiDex;
 
 import com.longuto.androidtemplet.util.CurrentActivityManager;
 import com.longuto.androidtemplet.util.MyCrashHandler;
@@ -49,7 +50,7 @@ public class MyApplication extends Application {
     @Override
     protected void attachBaseContext(Context base) {
         super.attachBaseContext(base);
-//        MultiDex.install(this);
+        MultiDex.install(this);
     }
 
     /**

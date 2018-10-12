@@ -1,4 +1,4 @@
-package com.longuto.androidtemplet.base.mvp.abs;
+package com.longuto.androidtemplet.base.mvp;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;

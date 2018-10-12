@@ -28,7 +28,13 @@ dependencies {
 
     // EventBus依赖
     implementation 'org.greenrobot:eventbus:3.1.1'
-    // ButterKnife
+    // ButterKnife依赖
     implementation 'com.jakewharton:butterknife:9.0.0-rc1'
     annotationProcessor 'com.jakewharton:butterknife-compiler:9.0.0-rc1'
+    // BRVAH依赖
+    implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.30'
+    // 方法数超限依赖
+    implementation 'com.android.support:multidex:1.0.1'
+    // 状态布局依赖
+    implementation 'com.github.medyo:state-views:0.2'
 }

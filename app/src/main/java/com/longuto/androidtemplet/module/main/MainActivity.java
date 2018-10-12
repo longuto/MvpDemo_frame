@@ -1,7 +1,7 @@
 package com.longuto.androidtemplet.module.main;
 
 import com.longuto.androidtemplet.R;
-import com.longuto.androidtemplet.base.mvp.abs.BaseAppCompatMvpActivity;
+import com.longuto.androidtemplet.base.mvp.BaseAppCompatMvpActivity;
 import com.longuto.androidtemplet.base.mvp.abs.factory.CreatePresenter;
 
 @CreatePresenter(RequestPresenter5.class)
