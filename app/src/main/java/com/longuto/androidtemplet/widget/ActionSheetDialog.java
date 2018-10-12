@@ -203,7 +203,7 @@ public class ActionSheetDialog {
         }
     }
     public enum SheetItemColor {
-        Blue("#037BFF"), Red("#FD4A2E"), GREEN("#28a399"), ORANGE("#feab43");
+        BLUE("#037BFF"), RED("#FD4A2E"), GREEN("#28a399"), ORANGE("#feab43");
         private String name;
         private SheetItemColor(String name) {
             this.name = name;
