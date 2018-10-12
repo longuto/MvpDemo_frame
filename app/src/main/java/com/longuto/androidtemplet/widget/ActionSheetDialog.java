@@ -60,7 +60,7 @@ public class ActionSheetDialog {
 
         // 设置屏幕高度
         if(typePosition == TYPE_MIDDLE) {
-            view.setMinimumWidth((int) ((float)display.getWidth() / 3 * 2));
+            view.setMinimumWidth((int) ((float)display.getWidth() * 4 / 5));
         } else {
             // 设置Dialog最小宽度为屏幕宽度
             view.setMinimumWidth(display.getWidth());
