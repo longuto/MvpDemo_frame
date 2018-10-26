@@ -11,6 +11,18 @@
         android:supportsRtl="true"
         android:largeHeap="true"
         android:theme="@style/AppTheme">
+
+        <!--7.0系统更新问题-->
+        <provider
+            android:name=".app.takephoto.InstallFileProvider"
+            android:authorities="${applicationId}.app.takephoto.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/joy_file_paths" />
+        </provider>
+
         <activity android:name=".module.main.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -18,6 +30,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity android:name=".module.main.TakePhotoActivity"/>
     </application>
 
 </manifest>

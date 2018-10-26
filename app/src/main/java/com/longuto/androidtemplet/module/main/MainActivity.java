@@ -12,9 +12,18 @@ import butterknife.OnClick;
 @CreatePresenter(RequestPresenter5.class)
 public class MainActivity extends BaseAppCompatMvpActivity<RequestView5, RequestPresenter5> implements RequestView5 {
 
-    @OnClick(R.id.tv)
+    @OnClick({R.id.tv, R.id.tv_second})
     public void function(View view) {
-        new TestActionSheetDialog(getContext()).setData(null).show();
+        switch (view.getId()) {
+            case R.id.tv:
+                new TestActionSheetDialog(getContext()).setData(null).show();
+                break;
+            case R.id.tv_second:
+                TakePhotoActivity.startActivity(getContext());
+                break;
+            default:
+                break;
+        }
     }
 
     @Override
