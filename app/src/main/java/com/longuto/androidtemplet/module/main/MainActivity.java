@@ -9,6 +9,11 @@ import com.longuto.androidtemplet.widget.TestActionSheetDialog;
 
 import butterknife.OnClick;
 
+/**
+ * Author by yltang,
+ * Date on 2018/10/11.
+ * PS: mvp模式的写法
+ */
 @CreatePresenter(RequestPresenter5.class)
 public class MainActivity extends BaseSupportMvpActivity<RequestView5, RequestPresenter5> implements RequestView5 {
 

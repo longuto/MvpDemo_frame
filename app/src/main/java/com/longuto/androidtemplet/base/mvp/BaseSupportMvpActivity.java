@@ -2,7 +2,6 @@ package com.longuto.androidtemplet.base.mvp;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.util.Log;
 
 import com.longuto.androidtemplet.base.BaseSupportActivity;
 import com.longuto.androidtemplet.base.mvp.abs.factory.PresenterMvpFactory;
@@ -11,6 +10,7 @@ import com.longuto.androidtemplet.base.mvp.abs.presenter.BaseMvpPresenter;
 import com.longuto.androidtemplet.base.mvp.abs.proxy.BaseMvpProxy;
 import com.longuto.androidtemplet.base.mvp.abs.proxy.PresenterProxyInterface;
 import com.longuto.androidtemplet.base.mvp.abs.view.BaseMvpView;
+import com.longuto.androidtemplet.util.LogUtils;
 
 /**
  * Author by yltang,
@@ -32,9 +32,9 @@ public abstract class BaseSupportMvpActivity<V extends BaseMvpView, P
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Log.e("perfect-mvp","V onCreate");
-        Log.e("perfect-mvp","V onCreate mProxy = " + mProxy);
-        Log.e("perfect-mvp","V onCreate this = " + this.hashCode());
+        LogUtils.mvp_frame("V onCreate");
+        LogUtils.mvp_frame("V onCreate mProxy = " + mProxy);
+        LogUtils.mvp_frame("V onCreate this = " + this.hashCode());
         if(savedInstanceState != null){
             mProxy.onRestoreInstanceState(savedInstanceState.getBundle(PRESENTER_SAVE_KEY));
         }
@@ -43,39 +43,39 @@ public abstract class BaseSupportMvpActivity<V extends BaseMvpView, P
     @Override
     protected void onResume() {
         super.onResume();
-        Log.e("perfect-mvp","V onResume");
+        LogUtils.mvp_frame("V onResume");
         mProxy.onResume((V) this);
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        Log.e("perfect-mvp","V onDestroy = " + isChangingConfigurations());
+        LogUtils.mvp_frame("V onDestroy = " + isChangingConfigurations());
         mProxy.onDestroy();
     }
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        Log.e("perfect-mvp","V onSaveInstanceState");
+        LogUtils.mvp_frame("V onSaveInstanceState");
         outState.putBundle(PRESENTER_SAVE_KEY,mProxy.onSaveInstanceState());
     }
 
     @Override
     public void setPresenterFactory(PresenterMvpFactory<V, P> presenterFactory) {
-        Log.e("perfect-mvp","V setPresenterFactory");
+        LogUtils.mvp_frame("V setPresenterFactory");
         mProxy.setPresenterFactory(presenterFactory);
     }
 
     @Override
     public PresenterMvpFactory<V, P> getPresenterFactory() {
-        Log.e("perfect-mvp","V getPresenterFactory");
+        LogUtils.mvp_frame("V getPresenterFactory");
         return mProxy.getPresenterFactory();
     }
 
     @Override
     public P getMvpPresenter() {
-        Log.e("perfect-mvp","V getMvpPresenter");
+        LogUtils.mvp_frame("V getMvpPresenter");
         return mProxy.getMvpPresenter();
     }
 }
