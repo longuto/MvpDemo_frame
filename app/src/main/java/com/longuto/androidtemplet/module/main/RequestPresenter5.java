@@ -2,9 +2,9 @@ package com.longuto.androidtemplet.module.main;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.util.Log;
 
 import com.longuto.androidtemplet.base.mvp.abs.presenter.BaseMvpPresenter;
+import com.longuto.androidtemplet.util.LogUtils;
 
 /**
  * @author 刘镓旗
@@ -17,15 +17,15 @@ public class RequestPresenter5 extends BaseMvpPresenter<RequestView5> {
     public void onCreatePersenter(@Nullable Bundle savedState) {
         super.onCreatePersenter(savedState);
         if(savedState != null){
-            Log.e("perfect-mvp","RequestPresenter5  onCreatePersenter 测试  = " + savedState.getString("test2") );
+//            LogUtils.mvp_frame("RequestPresenter5  onCreatePersenter 测试  = " + savedState.getString("test2") );
         }
     }
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        Log.e("perfect-mvp","RequestPresenter5  onSaveInstanceState 测试 " );
-        outState.putString("test2","test_save2");
+        LogUtils.mvp_frame("RequestPresenter5  onSaveInstanceState 测试 " );
+//        outState.putString("test2","test_save2");
     }
 
     @Override
