@@ -4,7 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.util.Log;
 
-import com.longuto.androidtemplet.base.BaseAppCompatActivity;
+import com.longuto.androidtemplet.base.BaseSupportActivity;
 import com.longuto.androidtemplet.base.mvp.abs.factory.PresenterMvpFactory;
 import com.longuto.androidtemplet.base.mvp.abs.factory.PresenterMvpFactoryImpl;
 import com.longuto.androidtemplet.base.mvp.abs.presenter.BaseMvpPresenter;
@@ -20,8 +20,8 @@ import com.longuto.androidtemplet.base.mvp.abs.view.BaseMvpView;
  *     2、是继承BaseAppCompatActivity重写写一份AbstractMvpActivity方法好，还是继承AbstractMvpActivity
  *     重写一份BaseAppCompatActivity方法， 哪一种效果好，看扩展
  */
-public abstract class BaseAppCompatMvpActivity<V extends BaseMvpView, P
-        extends BaseMvpPresenter<V>> extends BaseAppCompatActivity implements PresenterProxyInterface<V,P> {
+public abstract class BaseSupportMvpActivity<V extends BaseMvpView, P
+        extends BaseMvpPresenter<V>> extends BaseSupportActivity implements PresenterProxyInterface<V,P> {
 
     private static final String PRESENTER_SAVE_KEY = "presenter_save_key";
     /**

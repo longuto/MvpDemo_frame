@@ -14,7 +14,7 @@ import butterknife.BindView;
  * Date on 2018/10/13.
  * PS: RecyclerView含有下拉刷新，上拉加载更多的基类
  */
-public class BaseRecyclerAppCompatActivity extends BaseAppCompatActivity {
+public class BaseRecyclerSupportActivity extends BaseSupportActivity {
 
     @BindView(R.id.recycler)
     RecyclerView recyclerView;

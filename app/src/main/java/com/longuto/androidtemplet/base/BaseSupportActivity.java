@@ -8,12 +8,8 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.MotionEvent;
@@ -35,13 +31,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.ButterKnife;
+import me.yokeyword.fragmentation.SupportActivity;
 
 /**
  * Author by yltang,
  * Date on 2018/10/11.
  * PS: AppCompatActivity基类
  */
-public abstract class BaseAppCompatActivity extends AppCompatActivity implements IBaseView {
+public abstract class BaseSupportActivity extends SupportActivity implements IBaseView {
 
     private LinearLayout rootLayout;    // titleBar
     private TextView title; // 标题文本
@@ -216,113 +213,6 @@ public abstract class BaseAppCompatActivity extends AppCompatActivity implements
 
     }
 
-    //--------------------------Fragment相关--------------------------//
-
-    FragmentManager fragmentManager;
-
-    /**
-     * 获取Fragment管理器
-     *
-     * @return
-     */
-    public FragmentManager getBaseFragmentManager() {
-        if (fragmentManager == null) {
-            fragmentManager = getSupportFragmentManager();
-        }
-        return fragmentManager;
-    }
-
-    /**
-     * 获取Fragment事务管理
-     *
-     * @return
-     */
-    public FragmentTransaction getFragmentTransaction() {
-        return getBaseFragmentManager().beginTransaction();
-    }
-
-    /**
-     * 替换一个Fragment
-     *
-     * @param res
-     * @param fragment
-     */
-    public void replaceFragment(int res, Fragment fragment) {
-        replaceFragment(res, fragment, false);
-    }
-
-    /**
-     * 替换一个Fragment并设置是否加入回退栈
-     *
-     * @param res
-     * @param fragment
-     * @param isAddToBackStack
-     */
-    public void replaceFragment(int res, Fragment fragment, boolean isAddToBackStack) {
-        FragmentTransaction fragmentTransaction = getFragmentTransaction();
-        fragmentTransaction.replace(res, fragment);
-        if (isAddToBackStack) {
-            fragmentTransaction.addToBackStack(null);
-        }
-        fragmentTransaction.commit();
-
-    }
-
-    /**
-     * 添加一个Fragment
-     *
-     * @param res
-     * @param fragment
-     */
-    public void addFragment(int res, Fragment fragment) {
-        FragmentTransaction fragmentTransaction = getFragmentTransaction();
-        fragmentTransaction.add(res, fragment);
-        fragmentTransaction.commit();
-    }
-
-    public void addFragment(int res, Fragment fragment, String tag) {
-        FragmentTransaction fragmentTransaction = getFragmentTransaction();
-        fragmentTransaction.add(res, fragment, tag);
-        fragmentTransaction.commit();
-    }
-
-    /**
-     * 移除一个Fragment
-     *
-     * @param fragment
-     */
-    public void removeFragment(Fragment fragment) {
-        FragmentTransaction fragmentTransaction = getFragmentTransaction();
-        fragmentTransaction.remove(fragment);
-        fragmentTransaction.commit();
-    }
-
-    /**
-     * 显示一个Fragment
-     *
-     * @param fragment
-     */
-    public void showFragment(Fragment fragment) {
-        if (fragment.isHidden()) {
-            FragmentTransaction fragmentTransaction = getFragmentTransaction();
-            fragmentTransaction.show(fragment);
-            fragmentTransaction.commit();
-        }
-    }
-
-    /**
-     * 隐藏一个Fragment
-     *
-     * @param fragment
-     */
-    public void hideFragment(Fragment fragment) {
-        if (!fragment.isHidden()) {
-            FragmentTransaction fragmentTransaction = getFragmentTransaction();
-            fragmentTransaction.hide(fragment);
-            fragmentTransaction.commit();
-        }
-    }
-
     // -----------------请求权限相关-------------------- //
 
     protected String[] permissions = {};//需要请求的权限
@@ -376,7 +266,7 @@ public abstract class BaseAppCompatActivity extends AppCompatActivity implements
                             .OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            AppManager.showInstalledAppDetails(BaseAppCompatActivity.this,
+                            AppManager.showInstalledAppDetails(BaseSupportActivity.this,
                                     getPackageName(), REQUEST_TO_SETTING);
                         }
                     });

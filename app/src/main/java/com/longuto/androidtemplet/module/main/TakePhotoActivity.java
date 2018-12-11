@@ -16,7 +16,7 @@ import com.jph.takephoto.permission.PermissionManager;
 import com.jph.takephoto.permission.TakePhotoInvocationHandler;
 import com.longuto.androidtemplet.R;
 import com.longuto.androidtemplet.app.takephoto.TakeOrPickPhotoManager;
-import com.longuto.androidtemplet.base.BaseAppCompatActivity;
+import com.longuto.androidtemplet.base.BaseSupportActivity;
 
 import butterknife.OnClick;
 
@@ -25,7 +25,7 @@ import butterknife.OnClick;
  * Date on 2018/10/26.
  * PS: takephoto的Activity.
  */
-public class TakePhotoActivity extends BaseAppCompatActivity implements TakePhoto.TakeResultListener, InvokeListener {
+public class TakePhotoActivity extends BaseSupportActivity implements TakePhoto.TakeResultListener, InvokeListener {
 
     /**
      * 启动Act
