@@ -7,8 +7,12 @@ import android.os.Bundle;
 import android.os.Process;
 import android.support.multidex.MultiDex;
 
+import com.longuto.androidtemplet.BuildConfig;
 import com.longuto.androidtemplet.util.CurrentActivityManager;
 import com.longuto.androidtemplet.util.MyCrashHandler;
+
+import me.yokeyword.fragmentation.Fragmentation;
+import me.yokeyword.fragmentation.helper.ExceptionHandler;
 
 /**
  * Created by yltang3 on 2017/3/20.
@@ -44,7 +48,30 @@ public class MyApplication extends Application {
     /** 初始化功能 */
     private void initAbility() {
         registerActivityLife();
+        initFragmentation();
         MyCrashHandler.getInstance().register(this);
+    }
+
+    /**
+     * 初始化Fragmentation
+     */
+    private void initFragmentation() {
+        Fragmentation.builder()
+                // 设置 栈视图 模式为 （默认）悬浮球模式   SHAKE: 摇一摇唤出  NONE：隐藏， 仅在Debug环境生效
+                .stackViewMode(Fragmentation.BUBBLE)
+                .debug(BuildConfig.DEBUG) // 实际场景建议.debug(BuildConfig.DEBUG)
+                /**
+                 * 可以获取到{@link me.yokeyword.fragmentation.exception.AfterSaveStateTransactionWarning}
+                 * 在遇到After onSaveInstanceState时，不会抛出异常，会回调到下面的ExceptionHandler
+                 */
+                .handleException(new ExceptionHandler() {
+                    @Override
+                    public void onException(Exception e) {
+                        // 以Bugtags为例子: 把捕获到的 Exception 传到 Bugtags 后台。
+                        // Bugtags.sendException(e);
+                    }
+                })
+                .install();
     }
 
     @Override
