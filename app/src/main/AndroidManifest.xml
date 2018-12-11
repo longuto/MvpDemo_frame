@@ -23,7 +23,7 @@
                 android:resource="@xml/joy_file_paths" />
         </provider>
 
-        <activity android:name=".module.main.MainActivity">
+        <activity android:name=".module.main.MainActivity" android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -31,7 +31,7 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".module.main.TakePhotoActivity"/>
+        <activity android:name=".module.main.TakePhotoActivity" android:screenOrientation="portrait"/>
     </application>
 
 </manifest>
