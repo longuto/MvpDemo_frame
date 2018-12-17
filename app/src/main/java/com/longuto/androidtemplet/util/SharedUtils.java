@@ -1,9 +1,7 @@
-package com.longuto.androidtemplet.app;
+package com.longuto.androidtemplet.util;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-
-import com.longuto.androidtemplet.util.UiUtils;
 
 
 /**
@@ -14,21 +12,25 @@ public class SharedUtils {
 
     private final String CONFIG_NAME = "normal_config"; //默认配置文件的名称,退出应用需要清楚该文件
 
-    SharedPreferences sp;
+    /**
+     * 单例模式
+     */
+    private static SharedUtils mInstance;
+    public static SharedUtils getInstance() {
+        if(mInstance == null) {
+            mInstance = new SharedUtils();
+        }
+        return mInstance;
+    }
 
     /**
      * 系统默认配置文件
      */
-    public SharedUtils() {
+    private SharedUtils() {
         sp = UiUtils.getContext().getSharedPreferences(CONFIG_NAME, Context.MODE_PRIVATE);
     }
 
-    /**
-     * 自定义配置文件
-     */
-    public SharedUtils(String name) {
-        sp = UiUtils.getContext().getSharedPreferences(name, Context.MODE_PRIVATE);
-    }
+    private SharedPreferences sp;
 
     /**
      * 获取对象
