@@ -1,15 +1,18 @@
 package com.longuto.androidtemplet.app.takephoto;
 
 import android.net.Uri;
-import android.os.Environment;
 
 import com.jph.takephoto.app.TakePhoto;
 import com.jph.takephoto.compress.CompressConfig;
 import com.jph.takephoto.model.CropOptions;
 import com.jph.takephoto.model.LubanOptions;
 import com.jph.takephoto.model.TakePhotoOptions;
+import com.longuto.androidtemplet.util.StorageUtils;
+import com.longuto.androidtemplet.util.UiUtils;
 
 import java.io.File;
+
+import static com.longuto.androidtemplet.app.G.TEMP;
 
 /*******************************************************************
  *    * * * *   * * * *   *     *       Created by OCN.Yang
@@ -46,7 +49,8 @@ public class TakeOrPickPhotoManager {
     }
 
     public void takeOrPickPhoto(boolean isTakePhoto) {
-        File file = new File(Environment.getExternalStorageDirectory(), "/JoyExchange/temp/" + System.currentTimeMillis() + ".jpg");
+        File dir = StorageUtils.getCacheDirectory(UiUtils.getContext());
+        File file = new File(dir, TEMP + File.separator + System.currentTimeMillis() + ".jpg");
         if (!file.getParentFile().exists()) file.getParentFile().mkdirs();
         Uri imageUri = Uri.fromFile(file);
 //        TakePhoto takePhoto = getTakePhoto();

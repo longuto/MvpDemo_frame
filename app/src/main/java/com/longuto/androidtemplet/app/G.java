@@ -18,4 +18,6 @@ public class G {
     public static final String DATABASES = "databases"; // 数据库
     public static final String CRASHLOG = "crashLog"; // 崩溃日志
     public static boolean DATABASES_STOR = true;    // 数据库文件存储在sdcard
+
+    public static final String TEMP = "temp"; // 崩溃日志
 }
