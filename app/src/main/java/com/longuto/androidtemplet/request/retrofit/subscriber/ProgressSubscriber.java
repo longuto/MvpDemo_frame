@@ -1,12 +1,14 @@
 package com.longuto.androidtemplet.request.retrofit.subscriber;
 
+import android.app.Activity;
 import android.content.Context;
 
 import com.longuto.androidtemplet.request.exception.ExceptionHandle;
 import com.longuto.androidtemplet.request.progress.ProgressCancelListener;
 import com.longuto.androidtemplet.util.LogUtils;
 import com.longuto.androidtemplet.widget.CusProgressDialog;
-import com.shashank.sony.fancytoastlib.FancyToast;
+
+import java.lang.ref.WeakReference;
 
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
@@ -15,34 +17,40 @@ import io.reactivex.disposables.Disposable;
  * 用于在Http请求开始时，自动显示一个ProgressDialog
  * 在Http请求结束是，关闭ProgressDialog
  * 调用者自己对请求数据进行处理
- * Created by yltang3 on 16/3/10.
+ * Created by sam on 16/3/10.
  */
 public class ProgressSubscriber<T> implements ProgressCancelListener, Observer<T> {
-    /*
-    Disposable,翻译成一次性的。是用来控制发送者和接受者之间的纽带的,默认为false,表示发送者和接受者直接的通信阀门关闭,可以正常通信,
-    在调用dispose()方法之后,阀门开启,会阻断发送者和接收者之间的通信,从而断开连接.
-     */
+  /*
+  Disposable,翻译成一次性的。是用来控制发送者和接受者之间的纽带的,默认为false,表示发送者和接受者直接的通信阀门关闭,可以正常通信,
+  在调用dispose()方法之后,阀门开启,会阻断发送者和接收者之间的通信,从而断开连接.
+   */
   private Disposable mDisposable;
   private SubscriberOnNextListener mSubscriberOnNextListener;
-//  private ProgressDialogHandler mProgressDialogHandler;
-  private Context context;
+  //  private ProgressDialogHandler mProgressDialogHandler;
+  private WeakReference<Context> contextWeakReference;
   private CusProgressDialog mCusProgressDialog;
 
   public ProgressSubscriber(SubscriberOnNextListener subscriberOnNextListener, Context context) {
     this.mSubscriberOnNextListener = subscriberOnNextListener;
-    this.context = context;
-    mCusProgressDialog = new CusProgressDialog(context);
+    contextWeakReference = new WeakReference<Context>(context);
+    initProgress();
+  }
+
+  private void initProgress() {
+    if(null != contextWeakReference.get()) {
+      mCusProgressDialog = new CusProgressDialog(contextWeakReference.get());
+    }
   }
 
   private void showProgressDialog() {
-    if(mCusProgressDialog != null) {
+    if(isActivityRunning() && mCusProgressDialog != null && !mCusProgressDialog.isShowing()) {
       mCusProgressDialog.show();
     }
   }
 
   private void dismissProgressDialog() {
-    if (mCusProgressDialog != null) {
-      mCusProgressDialog.hide();
+    if (isActivityRunning() && mCusProgressDialog != null && mCusProgressDialog.isShowing()) {
+      mCusProgressDialog.dismiss();
     }
   }
 
@@ -53,9 +61,11 @@ public class ProgressSubscriber<T> implements ProgressCancelListener, Observer<T
    */
   @Override
   public void onError(Throwable e) {
-      FancyToast.makeText(context, ExceptionHandle.handleException(e).message,
-              FancyToast.LENGTH_LONG, FancyToast.ERROR,false).show();
-      dismissProgressDialog();
+    String message = ExceptionHandle.handleException(e).message;
+    dismissProgressDialog();
+    if (mSubscriberOnNextListener != null) {
+      mSubscriberOnNextListener.onError(message);
+    }
   }
 
   /**
@@ -85,6 +95,7 @@ public class ProgressSubscriber<T> implements ProgressCancelListener, Observer<T
    */
   @Override
   public void onNext(T t) {
+    dismissProgressDialog();
     if (mSubscriberOnNextListener != null) {
       mSubscriberOnNextListener.onNext(t);
     }
@@ -95,6 +106,22 @@ public class ProgressSubscriber<T> implements ProgressCancelListener, Observer<T
     if (!mDisposable.isDisposed()) {
       LogUtils.mvp_frame_e("取消订阅者");
       mDisposable.dispose();
+    }
+  }
+
+  /**
+   * 判断activity是否没finish
+   * @return
+   */
+  private boolean isActivityRunning() {
+    Context context = contextWeakReference.get();
+
+    if(context != null
+            && (context instanceof Activity)
+            &&!((Activity)context).isFinishing()) {
+      return true;
+    }else {
+      return false;
     }
   }
 }

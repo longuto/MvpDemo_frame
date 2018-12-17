@@ -1,7 +1,5 @@
 package com.longuto.androidtemplet.request.data;
 
-import java.util.Map;
-
 /**
  * @author yltang3
  * @version 1.0
@@ -33,8 +31,6 @@ public class BaseResponse<T> {
     private String message; // 业务原因说明
     private T data; // 业务成功返回的数据
 
-    private Map<String, String> headers;    // 响应头
-
     public int getStatus() {
         return status;
     }
@@ -59,16 +55,8 @@ public class BaseResponse<T> {
         this.data = data;
     }
 
-    public Map<String, String> getHeaders() {
-        return headers;
-    }
-
-    public void setHeaders(Map<String, String> headers) {
-        this.headers = headers;
-    }
-
     @Override
     public String toString() {
-        return "BaseResponse{" + "status=" + status + ", message='" + message + '\'' + ", data=" + data + ", headers=" + headers + '}';
+        return "BaseResponse{" + "status=" + status + ", message='" + message + '\'' + ", data=" + data + '}';
     }
 }

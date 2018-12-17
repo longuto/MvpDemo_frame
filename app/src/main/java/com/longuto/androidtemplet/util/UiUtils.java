@@ -9,6 +9,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.longuto.androidtemplet.app.MyApplication;
+import com.shashank.sony.fancytoastlib.FancyToast;
 
 /**
  * Created by longuto on 2016/10/27.
@@ -28,6 +29,23 @@ public class UiUtils {
         }
         mToast.setText(content);
         mToast.show();
+    }
+
+    /**
+     * 吐司第三方增强版本
+     */
+    private static Toast mFancyToast;
+    public static void showFancyToast(String content, int lev) {
+        if(null == mFancyToast) {
+            mFancyToast = FancyToast.makeText(getContext(), content, FancyToast.LENGTH_SHORT, lev, false);
+        }
+        mFancyToast.show();
+    }
+    public static void showFancyToast(String content) {
+        if(null == mFancyToast) {
+            mFancyToast = FancyToast.makeText(getContext(), content, FancyToast.LENGTH_SHORT, FancyToast.ERROR, false);
+        }
+        mFancyToast.show();
     }
 
     /**获取UiTid*/
