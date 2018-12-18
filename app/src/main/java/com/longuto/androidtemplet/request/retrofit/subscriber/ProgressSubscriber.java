@@ -29,27 +29,35 @@ public class ProgressSubscriber<T> implements ProgressCancelListener, Observer<T
   //  private ProgressDialogHandler mProgressDialogHandler;
   private WeakReference<Context> contextWeakReference;
   private CusProgressDialog mCusProgressDialog;
+  private boolean isHideProgress; // 是否隐藏progress
 
   public ProgressSubscriber(SubscriberOnNextListener subscriberOnNextListener, Context context) {
-    this.mSubscriberOnNextListener = subscriberOnNextListener;
-    contextWeakReference = new WeakReference<Context>(context);
-    initProgress();
+      this.mSubscriberOnNextListener = subscriberOnNextListener;
+      contextWeakReference = new WeakReference<Context>(context);
+      initProgress();
+  }
+
+  public ProgressSubscriber(SubscriberOnNextListener subscriberOnNextListener, Context context, boolean isHideProgress) {
+      this.mSubscriberOnNextListener = subscriberOnNextListener;
+      contextWeakReference = new WeakReference<Context>(context);
+      this.isHideProgress = isHideProgress;
+      initProgress();
   }
 
   private void initProgress() {
-    if(null != contextWeakReference.get()) {
+    if(null != contextWeakReference.get() && !isHideProgress) {
       mCusProgressDialog = new CusProgressDialog(contextWeakReference.get());
     }
   }
 
   private void showProgressDialog() {
-    if(isActivityRunning() && mCusProgressDialog != null && !mCusProgressDialog.isShowing()) {
+    if(isActivityRunning() && mCusProgressDialog != null && !mCusProgressDialog.isShowing() && !isHideProgress) {
       mCusProgressDialog.show();
     }
   }
 
   private void dismissProgressDialog() {
-    if (isActivityRunning() && mCusProgressDialog != null && mCusProgressDialog.isShowing()) {
+    if (isActivityRunning() && mCusProgressDialog != null && mCusProgressDialog.isShowing() && !isHideProgress) {
       mCusProgressDialog.dismiss();
     }
   }
